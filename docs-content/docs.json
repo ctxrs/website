@@ -1,0 +1,177 @@
+{
+  "name": "ctx",
+  "colors": {
+    "primary": "#15803D",
+    "light": "#33FF33",
+    "dark": "#15803D"
+  },
+  "favicon": "/favicon.ico",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "ctx",
+        "groups": [
+          {
+            "group": "Start",
+            "pages": [
+              "index",
+              "getting-started/install",
+              "first-search",
+              "skill"
+            ]
+          },
+          {
+            "group": "Concepts",
+            "pages": [
+              "concepts/how-it-works",
+              "concepts/supported-agents",
+              "reference/storage"
+            ]
+          },
+          {
+            "group": "Comparisons",
+            "pages": [
+              "comparisons/agent-memory",
+              "comparisons/codebase-graphs",
+              "comparisons/grep-log-search"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "blame",
+              "search",
+              "reference/cli",
+              "providers/native-imports",
+              "providers/custom-history-plugins",
+              "troubleshooting",
+              "changelog"
+            ]
+          },
+          {
+            "group": "Use with agents",
+            "pages": [
+              "agents/claude-code",
+              "agents/codex",
+              "agents/cursor",
+              "agents/pi",
+              "agents/opencode",
+              "agents/antigravity-gemini",
+              "agents/copilot-cli",
+              "agents/factory-droid"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "graf",
+        "groups": [
+          {
+            "group": "Start",
+            "pages": [
+              "graf/index",
+              "graf/docs/downloads",
+              "graf/docs/migrate-from-graphify"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "graf/docs/usage",
+              "graf/docs/benchmarks",
+              "graf/docs/docker-sqlite"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "sift",
+        "groups": [
+          {
+            "group": "Start",
+            "pages": [
+              "sift/index",
+              "sift/INTEGRATIONS",
+              "sift/COMPATIBILITY"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "sift/docs/reference",
+              "sift/benchmarks/index",
+              "sift/benchmarks/results/2026-09-21-release-v0.4.0/index"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "github",
+        "href": "https://github.com/ctxrs"
+      },
+      {
+        "tab": "support",
+        "href": "mailto:support@ctx.rs"
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/ctxrs/ctx",
+      "slack": "https://join.slack.com/t/ctxcommunity/shared_invite/zt-3ukm4kcyp-JOk23wqKOHjwvs~zR5SfyQ",
+      "x": "https://x.com/ctx_rs"
+    },
+    "links": [
+      {
+        "header": "Products",
+        "items": [
+          {
+            "label": "ctx",
+            "href": "/"
+          },
+          {
+            "label": "graf",
+            "href": "/graf"
+          },
+          {
+            "label": "sift",
+            "href": "/sift"
+          }
+        ]
+      },
+      {
+        "header": "Project",
+        "items": [
+          {
+            "label": "GitHub",
+            "href": "https://github.com/ctxrs/ctx"
+          },
+          {
+            "label": "Issues",
+            "href": "https://github.com/ctxrs/ctx/issues/new"
+          }
+        ]
+      },
+      {
+        "header": "Legal",
+        "items": [
+          {
+            "label": "Privacy Policy",
+            "href": "/legal/privacy-policy"
+          },
+          {
+            "label": "Terms of Use",
+            "href": "/legal/terms"
+          },
+          {
+            "label": "Security",
+            "href": "/legal/security"
+          }
+        ]
+      }
+    ]
+  },
+  "appearance": {
+    "default": "dark"
+  }
+}

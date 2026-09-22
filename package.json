@@ -1,0 +1,12 @@
+{
+  "name": "ctx-website",
+  "private": true,
+  "packageManager": "pnpm@9.15.1",
+  "scripts": {
+    "sync": "node scripts/sync-content.mjs",
+    "dev": "pnpm --dir services/docs-site dev",
+    "build": "pnpm --dir services/docs-site build",
+    "test": "pnpm --dir services/docs-site test",
+    "deploy": "pnpm --dir services/docs-site deploy"
+  }
+}
