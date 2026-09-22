@@ -1,0 +1,12 @@
+ctx.rs website
+
+The renderer and ctx documentation originate in ctxrs/ctx, licensed under
+Apache-2.0. Graf documentation and charts originate in ctxrs/graf, also licensed
+under Apache-2.0. The root LICENSE preserves these terms.
+
+Sift documentation and charts originate in ctxrs/sift, licensed under MIT.
+Its copyright and permission notice are preserved in licenses/sift-LICENSE.
+
+Exact repositories, source commits, and imported paths are recorded in
+content-sources.json. Generated navigation and README hero adaptations are
+maintained here; the original product READMEs remain in their respective repos.
