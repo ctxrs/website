@@ -7,6 +7,6 @@
     "dev": "pnpm --dir services/docs-site dev",
     "build": "pnpm --dir services/docs-site build",
     "test": "pnpm --dir services/docs-site test",
-    "deploy": "pnpm --dir services/docs-site deploy"
+    "deploy": "pnpm --dir services/docs-site run deploy"
   }
 }
