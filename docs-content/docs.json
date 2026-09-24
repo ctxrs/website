@@ -9,7 +9,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "ctx",
+        "tab": "docs",
         "groups": [
           {
             "group": "Start",
@@ -18,6 +18,20 @@
               "getting-started/install",
               "first-search",
               "skill"
+            ]
+          },
+          {
+            "group": "Graph",
+            "pages": [
+              "graph/index",
+              "graph/settings"
+            ]
+          },
+          {
+            "group": "Sift",
+            "pages": [
+              "sift/index",
+              "sift/settings"
             ]
           },
           {
@@ -64,50 +78,8 @@
         ]
       },
       {
-        "tab": "graf",
-        "groups": [
-          {
-            "group": "Start",
-            "pages": [
-              "graf/index",
-              "graf/docs/downloads",
-              "graf/docs/migrate-from-graphify"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": [
-              "graf/docs/usage",
-              "graf/docs/benchmarks",
-              "graf/docs/docker-sqlite"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "sift",
-        "groups": [
-          {
-            "group": "Start",
-            "pages": [
-              "sift/index",
-              "sift/INTEGRATIONS",
-              "sift/COMPATIBILITY"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": [
-              "sift/docs/reference",
-              "sift/benchmarks/index",
-              "sift/benchmarks/results/2026-09-21-release-v0.4.0/index"
-            ]
-          }
-        ]
-      },
-      {
         "tab": "github",
-        "href": "https://github.com/ctxrs"
+        "href": "https://github.com/ctxrs/ctx"
       },
       {
         "tab": "support",
@@ -123,18 +95,18 @@
     },
     "links": [
       {
-        "header": "Products",
+        "header": "Docs",
         "items": [
           {
-            "label": "ctx",
+            "label": "Overview",
             "href": "/"
           },
           {
-            "label": "graf",
-            "href": "/graf"
+            "label": "Graph",
+            "href": "/graph"
           },
           {
-            "label": "sift",
+            "label": "Sift",
             "href": "/sift"
           }
         ]

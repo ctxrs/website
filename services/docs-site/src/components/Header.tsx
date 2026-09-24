@@ -5,32 +5,8 @@ import { ChevronIcon, EllipsisVerticalIcon, MenuIcon, SearchIcon } from './Icons
 
 void React;
 
-type ProductKey = 'ctx' | 'graf' | 'sift';
-
-const PRODUCTS: Record<
-  ProductKey,
-  { repository: string; unixInstallCommand: string; windowsInstallCommand: string }
-> = {
-  ctx: {
-    repository: 'https://github.com/ctxrs/ctx',
-    unixInstallCommand: 'curl -fsSL https://ctx.rs/install | sh',
-    windowsInstallCommand: 'irm https://ctx.rs/install.ps1 | iex',
-  },
-  graf: {
-    repository: 'https://github.com/ctxrs/graf',
-    unixInstallCommand:
-      'curl -fsSL https://raw.githubusercontent.com/ctxrs/graf/main/install.sh | sh',
-    windowsInstallCommand:
-      'irm https://raw.githubusercontent.com/ctxrs/graf/main/install.ps1 | iex',
-  },
-  sift: {
-    repository: 'https://github.com/ctxrs/sift',
-    unixInstallCommand:
-      'curl -fsSL https://raw.githubusercontent.com/ctxrs/sift/main/install.sh | sh',
-    windowsInstallCommand:
-      'irm https://raw.githubusercontent.com/ctxrs/sift/main/install.ps1 | iex',
-  },
-};
+const UNIX_INSTALL_COMMAND = 'curl -fsSL https://ctx.rs/install | sh';
+const WINDOWS_INSTALL_COMMAND = 'irm https://ctx.rs/install.ps1 | iex';
 const CONFIGURED_INSTALL_COMMAND =
   import.meta.env?.VITE_CTX_INSTALL_COMMAND ??
   (typeof process === 'undefined' ? undefined : process.env.VITE_CTX_INSTALL_COMMAND);
@@ -62,21 +38,15 @@ function getBrowserPlatform(): string | undefined {
 }
 
 export function getInstallCommandForPlatform(
-  product: ProductKey,
   platform: string | undefined,
   configuredCommand?: string,
 ): string {
-  if (product === 'ctx' && configuredCommand !== undefined) {
+  if (configuredCommand !== undefined) {
     return configuredCommand;
   }
-  const commands = PRODUCTS[product];
   return platform && /\bwin/i.test(platform)
-    ? commands.windowsInstallCommand
-    : commands.unixInstallCommand;
-}
-
-function getActiveProduct(activeTabKey: string): ProductKey {
-  return activeTabKey === 'graf' || activeTabKey === 'sift' ? activeTabKey : 'ctx';
+    ? WINDOWS_INSTALL_COMMAND
+    : UNIX_INSTALL_COMMAND;
 }
 
 export function formatInstallCommandDisplay(command: string): string {
@@ -99,9 +69,7 @@ export function Header({
   const [installCopied, setInstallCopied] = useState(false);
   const [browserPlatform, setBrowserPlatform] = useState<string | undefined>();
   const installResetTimerRef = useRef<number | null>(null);
-  const activeProduct = getActiveProduct(activeTabKey);
   const installCommand = getInstallCommandForPlatform(
-    activeProduct,
     browserPlatform,
     CONFIGURED_INSTALL_COMMAND,
   );
@@ -126,7 +94,7 @@ export function Header({
       window.clearTimeout(installResetTimerRef.current);
       installResetTimerRef.current = null;
     }
-  }, [activeProduct]);
+  }, []);
 
   async function handleCopyInstallCommand(): Promise<void> {
     try {
@@ -171,7 +139,7 @@ export function Header({
             </kbd>
           </button>
           <button
-            aria-label={`Copy ${activeProduct} install command`}
+            aria-label="Copy ctx install command"
             className={`header-install-copy${installCopied ? ' is-copied' : ''}`}
             onClick={() => {
               void handleCopyInstallCommand();
@@ -236,11 +204,10 @@ export function Header({
         </div>
         <nav aria-label="Primary" className="top-nav">
           {tabs.map((tab) => {
-            const href = tab.key === 'github' ? PRODUCTS[activeProduct].repository : tab.href;
             return (
               <a
                 className={`top-nav-link${isActiveLink(activeTabKey, tab) ? ' is-active' : ''}`}
-                href={href}
+                href={tab.href}
                 key={tab.key}
                 rel={tab.external ? 'noreferrer' : undefined}
                 target={tab.external ? '_blank' : undefined}

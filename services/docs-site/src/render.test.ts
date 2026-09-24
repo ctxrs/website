@@ -4,23 +4,25 @@ import { renderRoute } from './render';
 import { getSiteData } from './lib/site-data';
 
 describe('renderRoute', () => {
-  it('renders the original search homepage without old demo media', () => {
+  it('renders the unified ctx homepage with the README banner', () => {
     const home = renderRoute('/');
 
     expect(home.headHtml).toContain('og:title');
     expect(home.headHtml).toContain('twitter:card');
     expect(home.headHtml).toContain('"@type":"SoftwareApplication"');
     expect(home.html).not.toContain('article-header');
-    expect(home.html).toContain('You have months of coding agent history on your machine');
-    expect(home.html).toContain('Search it with');
-    expect(home.html).not.toContain('Blame it with');
-    expect(home.html).toContain('open-source CLI for fast local search across your past coding agent sessions');
-    expect(home.html).toContain('Git blame for agent sessions');
+    expect(home.html).toContain('src="/docs/assets/ctx-readme-banner.png"');
+    expect(home.html).not.toContain('ctx-home-title-heading is-unified');
+    expect(home.html).toContain('You already have months of coding agent history on your machine');
+    expect(home.html).toContain('Search your agent history.');
+    expect(home.html).toContain('Blame code on the agent that wrote it.');
+    expect(home.html).toContain('Map your codebase.');
+    expect(home.html).toContain('Cut noisy tool output.');
+    expect(home.html).toContain('ctx graph is Graphify');
+    expect(home.html).toContain('ctx sift');
     expect(home.html).not.toContain('ctx pro');
     expect(home.html).not.toContain('trial');
     expect(home.html).toContain('ctx scans it with parallel workers');
-    expect(home.html).toContain('How ctx differs from agent memory and codebase intelligence');
-    expect(home.html).toContain('DeepSeek Harness');
     expect(home.html).not.toContain('Agentic Development Environment');
     expect(home.html).not.toContain('<video');
   });

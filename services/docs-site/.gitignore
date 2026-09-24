@@ -32,6 +32,7 @@ src/generated/
 *.sln
 *.sw?
 
-# Product images are generated from docs-content.
+# Site images are generated from docs-content.
+public/docs/
 public/graf/
 public/sift/

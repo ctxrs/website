@@ -1,0 +1,46 @@
+---
+title: "Graph setup and settings"
+sidebarTitle: "Settings"
+description: "Choose a project to index, manage its graph database, and set up optional agent integrations."
+---
+
+## Index a project
+
+From any project:
+
+```sh
+ctx graph index .
+ctx graph stats
+ctx graph search authenticate
+```
+
+Indexing and updates are explicit. Reads use the saved snapshot and do not refresh source files. After changing code, update only what changed:
+
+```sh
+ctx graph update
+```
+
+ctx graph saves the graph at `.graf/index.db` and discovers the nearest ancestor database. `ctx graph --db PATH ...` selects one explicitly. Use an exact node ID when a symbol name is ambiguous. Inspect generation, coverage, unresolved references and truncation before judging completeness. Graph reachability describes potential impact, not proof of runtime behavior or agent authorship.
+
+## Search scope
+
+```sh
+ctx search "retry policy"
+ctx search --scope graph authenticate
+ctx search --scope all authenticate
+```
+
+The default search scope is `history`. `graph` searches indexed code and document relationships. `all` returns separately labeled history and graph results from retained snapshots. Scores from the two engines are not a common ranking scale. Use `ctx graph --help` for callers, paths, filters, reports, exports, and the full graph command set.
+
+## Use with an agent
+
+```sh
+ctx integrations install skill
+ctx integrations install mcp --agent codex
+```
+
+Optional project graph tool hooks use `ctx graph install --platform gemini --project PATH` (or `claude` or `codebuddy`). Remove them with `ctx graph uninstall` and the same selections. Git refresh hooks use `ctx graph hook install --project PATH`.
+
+Existing `.graf/index.db` databases work with `ctx graph`; no conversion is required. Existing Graf integrations are not implicitly removed or rewritten.
+
+For full source and platform details, see the [ctx graph guide](https://github.com/ctxrs/ctx/blob/f94d485b2496665e3dc0fcaf52e747f3e1bfc272/docs/unified-context.md).

@@ -31,7 +31,7 @@ describe('buildRouteMetadata', () => {
 
     expect(
       findHeadElement(metadata.headElements, 'meta', 'property', 'og:title')?.attributes.content,
-    ).toBe('ctx | Instant recall for coding agents');
+    ).toBe('ctx | Search, blame, graph, and sift');
     expect(
       findHeadElement(metadata.headElements, 'meta', 'name', 'twitter:card')?.attributes.content,
     ).toBe('summary_large_image');
@@ -68,39 +68,16 @@ describe('buildRouteMetadata', () => {
     );
   });
 
-  it('uses product metadata and schema on Graf and Sift routes', () => {
-    const grafHome = buildRouteMetadata('/graf');
-    const grafDocs = buildRouteMetadata('/graf/docs/usage');
-    const siftHome = buildRouteMetadata('/sift');
-
-    const grafGraph = getJsonLdPayloads(grafHome.headElements)[0];
-    const grafSoftware = ((grafGraph?.['@graph'] ?? []) as Array<Record<string, unknown>>).find(
-      (entry) => entry['@type'] === 'SoftwareApplication',
-    );
-    const siftGraph = getJsonLdPayloads(siftHome.headElements)[0];
-    const siftSoftware = ((siftGraph?.['@graph'] ?? []) as Array<Record<string, unknown>>).find(
-      (entry) => entry['@type'] === 'SoftwareApplication',
-    );
-
-    expect(grafHome.title.toLowerCase()).toContain('graf');
-    expect(grafHome.description.toLowerCase()).toContain('code graph');
-    expect(grafSoftware).toEqual(
-      expect.objectContaining({
-        name: 'graf',
-        operatingSystem: 'macOS, Linux, Windows',
-        url: 'https://ctx.rs/graf/',
-      }),
-    );
-    expect(grafDocs.title).toMatch(/ - graf$/);
-    expect(siftHome.title.toLowerCase()).toContain('sift');
-    expect(siftHome.description.toLowerCase()).toContain('tool output');
-    expect(siftSoftware).toEqual(
-      expect.objectContaining({
-        name: 'sift',
-        operatingSystem: 'macOS, Linux, Windows',
-        url: 'https://ctx.rs/sift/',
-      }),
-    );
+  it('treats Graph and Sift as ctx docs, with one software homepage', () => {
+    const graph = buildRouteMetadata('/graph');
+    const sift = buildRouteMetadata('/sift');
+    expect(graph.title).toBe('Map your codebase with ctx graph - ctx');
+    expect(sift.title).toBe('Cut noisy tool output with ctx sift - ctx');
+    expect(graph.description).toContain('code graph');
+    expect(sift.description).toContain('tool output');
+    expect(getJsonLdPayloads(graph.headElements).some(entry => entry['@type'] === 'SoftwareApplication')).toBe(false);
+    expect(getJsonLdPayloads(sift.headElements).some(entry => entry['@type'] === 'SoftwareApplication')).toBe(false);
+    expect(buildRouteMetadata('/graf').canonicalUrl).toBe('https://ctx.rs/graph/');
   });
 
   it('adds breadcrumb metadata for docs and legal routes', () => {

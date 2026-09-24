@@ -54,7 +54,7 @@ interface AppProps {
   pathname: string;
 }
 
-const PRODUCT_HOME_PATHNAMES = new Set(['/', '/graf', '/sift']);
+const PRODUCT_HOME_PATHNAMES = new Set(['/']);
 
 interface SearchNavigationTarget {
   hash: string;

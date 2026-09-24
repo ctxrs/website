@@ -1,6 +1,6 @@
 ---
 title: "Codebase graphs"
-description: "How ctx differs from Graphify-style code and folder graphs."
+description: "How ctx graph and ctx history search work together."
 ---
 
 A codebase graph can tell an agent that `search.rs` depends on `store.rs`, which files import a module, or where a symbol is defined. That helps when the current repository is the source of truth.
@@ -9,7 +9,7 @@ It does not answer a different kind of question: “What did the last agent lear
 
 That history may contain the failed command, rejected shortcut, user constraint, or review note that explains why the current code looks strange. Those details usually live in agent transcripts, not in the file graph.
 
-## Use a graph for repository shape
+## Use ctx graph for repository shape
 
 Codebase graph tools can answer questions such as:
 
@@ -18,11 +18,11 @@ Codebase graph tools can answer questions such as:
 - "What depends on this package?"
 - "How is this folder connected to the rest of the repo?"
 
-The input is usually the current checkout or a folder of documents. The output is a map of files, symbols, edges, neighborhoods, or generated explanations over that structure.
+`ctx graph index .` builds that map from a chosen project. Use `ctx graph search`, `ctx graph callers`, or `ctx graph impact` to follow its files, symbols, and relationships. Graph indexing is explicit; [Graph settings](/graph/settings) explains updates and the saved database.
 
-## Use ctx for prior work
+## Use ctx search for prior work
 
-ctx starts from local agent history. It imports persisted provider sessions into a self-contained Tantivy Core and gives each session and event a ctx-owned identity. That lets an agent ask:
+ctx search starts from local agent history. It imports persisted provider sessions into a self-contained Tantivy Core and gives each session and event a ctx-owned identity. That lets an agent ask:
 
 - "Who already investigated this failure mode?"
 - "Which command showed the migration was incomplete?"
@@ -41,6 +41,6 @@ ctx show session <ctx-session-id>
 
 ## Working together
 
-Codebase graphs and ctx are complementary. A graph can help find the right area of the repository. ctx can recover what earlier agents learned while changing, testing, or debugging that area.
+ctx graph and ctx history search are complementary. The graph can help find the right area of the repository. History search can recover what earlier agents learned while changing, testing, or debugging that area.
 
 ctx keeps transcript content local: it reads local provider history, writes its own Tantivy Core index, and does not require model API calls, API keys, repository writes, or a hosted search service.

@@ -26,38 +26,8 @@ const MONTHS = new Map<string, string>([
 
 type PageKind = 'blog' | 'docs' | 'home' | 'legal' | 'missing';
 type HeadTagName = 'link' | 'meta' | 'script';
-type ProductKey = 'ctx' | 'graf' | 'sift';
-
-interface ProductMetadata {
-  defaultDescription: string;
-  homePathname: '/' | '/graf' | '/sift';
-  key: ProductKey;
-  name: string;
-}
-
-const PRODUCTS: Record<ProductKey, ProductMetadata> = {
-  ctx: {
-    defaultDescription:
-      'ctx indexes local agent history so future agents can retrieve prior work with citations.',
-    homePathname: '/',
-    key: 'ctx',
-    name: 'ctx',
-  },
-  graf: {
-    defaultDescription:
-      'Graf is a fast local code graph for coding agents, with SQLite-backed indexing and search in one native binary.',
-    homePathname: '/graf',
-    key: 'graf',
-    name: 'graf',
-  },
-  sift: {
-    defaultDescription:
-      'Sift uses deterministic local compaction to cut noisy tool output before it reaches your coding agent.',
-    homePathname: '/sift',
-    key: 'sift',
-    name: 'sift',
-  },
-};
+const DEFAULT_DESCRIPTION =
+  'Search coding agent history, blame code to the session that wrote it, map code relationships, and cut noisy tool output with ctx.';
 
 interface BreadcrumbItem {
   name: string;
@@ -110,18 +80,8 @@ function buildAssetUrl(pathname: string): string {
   return buildCanonicalUrl(pathname);
 }
 
-function getProductMetadata(page: PageRecord | null, pathname: string): ProductMetadata {
-  const routeProduct = pathname.split('/')[1];
-  const productKey = page?.tabKey === 'graf' || page?.tabKey === 'sift'
-    ? page.tabKey
-    : routeProduct === 'graf' || routeProduct === 'sift'
-      ? routeProduct
-      : 'ctx';
-  return PRODUCTS[productKey];
-}
-
 function isProductHome(pathname: string): boolean {
-  return pathname === '/' || pathname === '/graf' || pathname === '/sift';
+  return pathname === '/';
 }
 
 function getPageKind(page: PageRecord | null, pathname: string): PageKind {
@@ -238,7 +198,6 @@ function buildOrganizationJsonLd(site: SiteData): Record<string, unknown> {
 
 function buildSoftwareApplicationJsonLd(
   description: string,
-  product: ProductMetadata,
   site: SiteData,
 ): Record<string, unknown> {
   return {
@@ -248,10 +207,10 @@ function buildSoftwareApplicationJsonLd(
     description,
     image: buildAssetUrl(HOME_PAGE_SOCIAL_IMAGE_PATH),
     isAccessibleForFree: true,
-    name: product.name,
+    name: 'ctx',
     operatingSystem: 'macOS, Linux, Windows',
     publisher: buildPublisher(site),
-    url: buildCanonicalUrl(product.homePathname),
+    url: buildCanonicalUrl('/'),
   };
 }
 
@@ -360,12 +319,11 @@ function buildStructuredData(
   const pageKind = getPageKind(page, pathname);
 
   if (pageKind === 'home') {
-    const product = getProductMetadata(page, pathname);
     const graph = {
       '@context': 'https://schema.org',
       '@graph': [
         buildOrganizationJsonLd(site),
-        buildSoftwareApplicationJsonLd(description, product, site),
+        buildSoftwareApplicationJsonLd(description, site),
       ],
     };
 
@@ -416,14 +374,13 @@ function createManagedHeadElement(descriptor: HeadElementDescriptor): HTMLElemen
 }
 
 export function buildPageTitle(page: PageRecord | null, pathname = page?.pathname ?? '/'): string {
-  const product = getProductMetadata(page, pathname);
   if (!page) {
-    return `Page not found - ${product.name}`;
+    return 'Page not found - ctx';
   }
   if (isProductHome(page.pathname)) {
     return page.title;
   }
-  return `${page.title} - ${product.name}`;
+  return `${page.title} - ctx`;
 }
 
 export function buildMetaDescription(page: PageRecord | null, pathname = page?.pathname ?? '/'): string {
@@ -432,7 +389,7 @@ export function buildMetaDescription(page: PageRecord | null, pathname = page?.p
   }
 
   const description = stripTags(page.descriptionHtml || page.description);
-  return description || getProductMetadata(page, pathname).defaultDescription;
+  return description || DEFAULT_DESCRIPTION;
 }
 
 export function buildCanonicalUrl(pathname: string): string {
@@ -444,7 +401,6 @@ export function buildRouteMetadata(pathname: string): RouteMetadata {
   const site = getSiteData();
   const resolvedPathname = getResolvedPathname(pathname);
   const page = getPageForPathname(resolvedPathname);
-  const product = getProductMetadata(page, resolvedPathname);
   const title = buildPageTitle(page, resolvedPathname);
   const description = buildMetaDescription(page, resolvedPathname);
   const canonicalUrl = buildCanonicalUrl(resolvedPathname);
@@ -458,7 +414,7 @@ export function buildRouteMetadata(pathname: string): RouteMetadata {
     pageKind === 'home'
       ? description
       : page
-        ? `${page.title} on ${product.name}`
+        ? `${page.title} on ctx`
         : `${site.siteName} documentation preview`;
 
   const headElements: HeadElementDescriptor[] = [
