@@ -1,0 +1,42 @@
+---
+title: "Sift setup and settings"
+sidebarTitle: "Settings"
+description: "Run ctx sift explicitly or install an optional agent hook; inspect configuration and retained output."
+---
+
+## Compact output when requested
+
+Use `ctx sift` when you want output compaction or an existing project or user instruction opts in. Installing ctx alone does not opt ordinary commands into wrapping; run those commands directly.
+
+```sh
+ctx sift -- cargo test
+ctx sift compact output.txt
+ctx sift compact --protocol=json-v1 < requests.jsonl
+ctx sift restore --encoding text-runs-v1 compacted.txt
+```
+
+`ctx sift` executes the command once, inheriting stdin, environment and working directory. It preserves stdout/stderr separation and returns the child's exit status. Arguments after `--` belong to the child; pass an explicit shell when you intend a pipeline or other shell syntax.
+
+By default, terminal input or output passes through. Otherwise, short complete output can be compacted. Buffering switches to raw streaming at the runner's size or time limit so ongoing progress remains visible. `--capture` waits for complete output up to the size limit and can delay prompts; use it for finite commands. `--raw` preserves streams and takes precedence over capture.
+
+## Install an optional hook
+
+```sh
+ctx integrations install sift --agent claude-code
+ctx integrations status sift
+ctx integrations remove sift --agent claude-code
+```
+
+Supported hosts include Claude Code, GitHub Copilot CLI, and Codex on POSIX. With no `--agent`, the install command selects detected supported hosts. Hook installation never runs as part of the ordinary binary or skill installer. A standalone Sift hook is reported as a conflict and must be removed explicitly before installing a ctx hook.
+
+## Configuration and original output
+
+```sh
+ctx sift config show
+ctx recall --list
+ctx recall ID
+```
+
+Original output can be recovered only when retention was enabled and a complete capture was saved; streamed output is not a recoverable transcript. `CTX_OUTPUT_CONFIG_DIR` and `CTX_OUTPUT_STATE_DIR` select ctx's configuration and state directories. Existing nonempty `SIFT_CONFIG_DIR` and `SIFT_STATE_DIR` remain fallbacks when the corresponding ctx override is unset or empty. ctx does not move or delete Sift's data. Use `ctx sift config --help` for the default directory locations and `ctx sift --help` for output settings.
+
+For full source and compatibility details, see the [ctx sift guide](https://github.com/ctxrs/ctx/blob/f94d485b2496665e3dc0fcaf52e747f3e1bfc272/docs/unified-context.md#compact-output-when-requested).

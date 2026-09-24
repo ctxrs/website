@@ -51,9 +51,6 @@
       "docs-content/comparisons/agent-memory.mdx": {
         "file": "comparisons/agent-memory.mdx"
       },
-      "docs-content/comparisons/codebase-graphs.mdx": {
-        "file": "comparisons/codebase-graphs.mdx"
-      },
       "docs-content/comparisons/grep-log-search.mdx": {
         "file": "comparisons/grep-log-search.mdx"
       },
@@ -92,9 +89,6 @@
       },
       "docs-content/icons/copy.svg": {
         "file": "icons/copy.svg"
-      },
-      "docs-content/index.mdx": {
-        "file": "index.mdx"
       },
       "docs-content/legal/asset-notices.mdx": {
         "file": "legal/asset-notices.mdx"
@@ -155,97 +149,6 @@
       },
       "docs-content/troubleshooting.mdx": {
         "file": "troubleshooting.mdx"
-      }
-    }
-  },
-  "graf": {
-    "repository": "ctxrs/graf",
-    "commit": "b7d179d950710981383814183601024537d9a440",
-    "files": {
-      "README.md": {
-        "file": "graf/index.mdx",
-        "title": "graf \u2014 Graphify, rebuilt in Rust",
-        "sidebarTitle": "Overview",
-        "description": "A local code graph for coding agents. 1000x faster search, 89x faster updates, and one native binary.",
-        "hero": [
-          "graf is graphify, rebuilt in rust",
-          "for 1000x faster search"
-        ]
-      },
-      "docs/downloads.md": {
-        "file": "graf/docs/downloads.md",
-        "title": "Installation and downloads",
-        "sidebarTitle": "Install"
-      },
-      "docs/usage.md": {
-        "file": "graf/docs/usage.md",
-        "title": "Graf usage guide",
-        "sidebarTitle": "Usage guide"
-      },
-      "docs/migrate-from-graphify.md": {
-        "file": "graf/docs/migrate-from-graphify.md",
-        "title": "Migrate from Graphify",
-        "sidebarTitle": "Migrate from Graphify"
-      },
-      "docs/benchmarks.md": {
-        "file": "graf/docs/benchmarks.md",
-        "title": "Graf benchmarks",
-        "sidebarTitle": "Benchmarks"
-      },
-      "docs/docker-sqlite.md": {
-        "file": "graf/docs/docker-sqlite.md",
-        "title": "SQLite in containers",
-        "sidebarTitle": "Containers"
-      },
-      "docs/assets/graf-vscode-performance.svg": {
-        "file": "graf/docs/assets/graf-vscode-performance.svg"
-      }
-    }
-  },
-  "sift": {
-    "repository": "ctxrs/sift",
-    "commit": "2c9a302a5dcea9c81c18882c6df8556919e1e3d5",
-    "files": {
-      "README.md": {
-        "file": "sift/index.mdx",
-        "title": "sift \u2014 Compact tool output for coding agents",
-        "sidebarTitle": "Overview",
-        "description": "Compact tool output before it reaches your coding agent. One native binary, local by default.",
-        "hero": [
-          "47% of tool output is unhelpful noise.",
-          "sift uses Jev to remove it safely."
-        ]
-      },
-      "docs/reference.md": {
-        "file": "sift/docs/reference.md",
-        "title": "Sift command reference",
-        "sidebarTitle": "Command reference"
-      },
-      "INTEGRATIONS.md": {
-        "file": "sift/INTEGRATIONS.md",
-        "title": "Sift agent integrations",
-        "sidebarTitle": "Agent setup"
-      },
-      "COMPATIBILITY.md": {
-        "file": "sift/COMPATIBILITY.md",
-        "title": "Sift compatibility",
-        "sidebarTitle": "Migrate from RTK"
-      },
-      "benchmarks/README.md": {
-        "file": "sift/benchmarks/index.md",
-        "title": "Sift benchmarks",
-        "sidebarTitle": "Benchmarks"
-      },
-      "benchmarks/results/2026-09-21-release-v0.4.0/README.md": {
-        "file": "sift/benchmarks/results/2026-09-21-release-v0.4.0/index.md",
-        "title": "Sift 0.4 benchmark results",
-        "sidebarTitle": "Release results"
-      },
-      "benchmarks/results/2026-09-21-release-v0.4.0/elapsed.svg": {
-        "file": "sift/benchmarks/results/2026-09-21-release-v0.4.0/elapsed.svg"
-      },
-      "benchmarks/results/2026-09-21-release-v0.4.0/token.svg": {
-        "file": "sift/benchmarks/results/2026-09-21-release-v0.4.0/token.svg"
       }
     }
   }

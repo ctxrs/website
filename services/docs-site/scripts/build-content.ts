@@ -567,12 +567,37 @@ async function main(): Promise<void> {
     }
     redirects['/pro/referrals.md'] = '/index.md';
   }
+  if (pages['/graph'] && pages['/sift']) {
+    const legacyPages: Record<string, string> = {
+      '/graf': '/graph',
+      '/graf/docs/downloads': '/getting-started/install',
+      '/graf/docs/migrate-from-graphify': '/graph/settings',
+      '/graf/docs/usage': '/graph/settings',
+      '/graf/docs/benchmarks': '/graph',
+      '/graf/docs/docker-sqlite': '/graph/settings',
+      '/sift/INTEGRATIONS': '/sift/settings',
+      '/sift/COMPATIBILITY': '/sift',
+      '/sift/docs/reference': '/sift/settings',
+      '/sift/benchmarks': '/sift',
+      '/sift/benchmarks/results/2026-09-21-release-v0.4.0': '/sift',
+    };
+    for (const [from, to] of Object.entries(legacyPages)) {
+      redirects[from] = to;
+      redirects[`${from}/`] = to;
+      redirects[`${from}.md`] =
+        to === '/graph' || to === '/sift' ? `${to}/index.md` : `${to}.md`;
+    }
+    redirects['/graf/index.md'] = '/graph/index.md';
+    redirects['/sift/benchmarks/index.md'] = '/sift/index.md';
+    redirects['/sift/benchmarks/results/2026-09-21-release-v0.4.0/index.md'] = '/sift/index.md';
+    redirects['/graf/docs/assets/graf-vscode-performance.svg'] = '/docs/assets/ctx-graph-vscode-performance.svg';
+  }
   const searchIndex = buildSearchIndex(searchPages);
   const siteName = docsConfig.name ?? 'ctx Docs';
 
   const siteData: SiteData = {
     defaultDescription:
-      'ctx indexes local agent-history so future agents can retrieve prior work with citations.',
+      'Search coding agent history, blame code to the session that wrote it, map code relationships, and cut noisy tool output with ctx.',
     footer: docsConfig.footer
       ? {
           links: docsConfig.footer.links ?? [],

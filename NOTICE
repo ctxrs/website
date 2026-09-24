@@ -1,12 +1,12 @@
 ctx.rs website
 
-The renderer and ctx documentation originate in ctxrs/ctx, licensed under
-Apache-2.0. Graf documentation and charts originate in ctxrs/graf, also licensed
-under Apache-2.0. The root LICENSE preserves these terms.
+The renderer and imported history documentation originate in ctxrs/ctx, licensed
+under Apache-2.0. The unified homepage, Graph and Sift copy, and chart assets
+follow ctxrs/ctx commit f94d485b2496665e3dc0fcaf52e747f3e1bfc272. The root
+LICENSE preserves the Apache-2.0 terms.
 
-Sift documentation and charts originate in ctxrs/sift, licensed under MIT.
+The Sift feature also draws on the earlier ctxrs/sift work, licensed under MIT.
 Its copyright and permission notice are preserved in licenses/sift-LICENSE.
 
-Exact repositories, source commits, and imported paths are recorded in
-content-sources.json. Generated navigation and README hero adaptations are
-maintained here; the original product READMEs remain in their respective repos.
+The remaining imported history-doc paths and commit are recorded in
+content-sources.json. The unified homepage and feature pages are maintained here.
