@@ -40,7 +40,7 @@ Site navigation is in `docs-content/docs.json`; rendering and styles are in
 
 ## Deploy
 
-After reviewing and testing the change, `pnpm deploy` publishes to the existing
+After reviewing and testing the change, `pnpm run deploy` publishes to the existing
 Cloudflare Pages project `ctx-site`. Deployment is manual and requires Wrangler
 authentication. There is no GitHub Actions or automatic Pages deployment.
 The installer on this site selects the latest published ctx release. Coordinate
