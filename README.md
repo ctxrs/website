@@ -31,9 +31,9 @@ pnpm sync ctx
 Commit the resulting content changes along with the new pins. Builds use these
 checked-in files and do not fetch product documentation from the network.
 
-The main page is edited in `docs-content/index.mdx` so its headline stays inline
-in the site typography. Graph and Sift settings and the codebase-graphs comparison
-are edited here too, so refreshing older history docs does not restore standalone
+The main page is edited in `docs-content/index.mdx` and uses the existing ctx
+README banner. Graph and Sift settings and the codebase-graphs comparison are
+edited here too, so refreshing older history docs does not restore standalone
 product wording.
 Site navigation is in `docs-content/docs.json`; rendering and styles are in
 `services/docs-site`.
@@ -43,7 +43,7 @@ Site navigation is in `docs-content/docs.json`; rendering and styles are in
 After reviewing and testing the change, `pnpm deploy` publishes to the existing
 Cloudflare Pages project `ctx-site`. Deployment is manual and requires Wrangler
 authentication. There is no GitHub Actions or automatic Pages deployment.
-The unified Graph and Sift pages should go live with the ctx 2.0 release; the
-installer on this site currently selects the latest published ctx release.
+The installer on this site selects the latest published ctx release. Coordinate
+documentation for new commands with the corresponding product release.
 
 See [NOTICE](NOTICE) for source attribution and licenses.

@@ -4,13 +4,15 @@ import { renderRoute } from './render';
 import { getSiteData } from './lib/site-data';
 
 describe('renderRoute', () => {
-  it('renders the unified ctx homepage with the existing inline style', () => {
+  it('renders the unified ctx homepage with the README banner', () => {
     const home = renderRoute('/');
 
     expect(home.headHtml).toContain('og:title');
     expect(home.headHtml).toContain('twitter:card');
     expect(home.headHtml).toContain('"@type":"SoftwareApplication"');
     expect(home.html).not.toContain('article-header');
+    expect(home.html).toContain('src="/docs/assets/ctx-readme-banner.png"');
+    expect(home.html).not.toContain('ctx-home-title-heading is-unified');
     expect(home.html).toContain('You already have months of coding agent history on your machine');
     expect(home.html).toContain('Search your agent history.');
     expect(home.html).toContain('Blame code on the agent that wrote it.');

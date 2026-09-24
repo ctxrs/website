@@ -13,7 +13,7 @@ it('keeps one docs tab with Graph and Sift settings in the sidebar', () => {
     expect(site.pages[pathname]?.tabKey).toBe('docs');
     expect(renderRoute(pathname).html).toContain('article-header');
   }
-  expect(renderRoute('/').html).toContain('ctx-home-title-heading is-unified');
+  expect(renderRoute('/').html).toContain('src="/docs/assets/ctx-readme-banner.png"');
   expect(site.pages['/']?.html).toContain('ctx graph is Graphify');
   expect(site.pages['/']?.html).toContain('ctx sift');
   expect(site.pages['/']?.html).toContain('src="/docs/assets/ctx-graph-vscode-performance.svg"');
