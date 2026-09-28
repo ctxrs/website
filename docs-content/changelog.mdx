@@ -8,6 +8,149 @@ Entries below describe the behavior of their dated historical releases. A
 feature recorded here may no longer be part of the current product surface.
 See [Blame](/blame) and [Install](/getting-started/install) for current use.
 
+## 2.1.0
+
+Released: 2026-09-28
+
+### Changed
+
+- Blame indexing supports histories with more than 16,384 sources. Large source inventories are processed in pages with temporary disk storage.
+
+### Fixed
+
+- Incremental history refresh calculates free-space requirements from the data it needs to write or copy, avoiding unnecessary full-index reservations.
+- Disk-full failures keep previously indexed history searchable and retain the failure reason while retries back off.
+- Installers distinguish a successful binary install from failed history setup. `ctx setup --wait` returns a nonzero status if the requested refresh fails.
+- Uninstalling and reinstalling preserves your automatic or manual indexing preference.
+- A verified new installation no longer reports upgrade errors from an older installation.
+- On macOS, retained history files keep stable identities across reboots.
+
+### Commits and PRs
+
+- Source commit: [dcbbe02b](https://github.com/ctxrs/ctx/commit/dcbbe02bdd2a746d3af19bb3f6e981491b588a52).
+- Full diff: [v2.0.5...dcbbe02b](https://github.com/ctxrs/ctx/compare/v2.0.5...dcbbe02bdd2a746d3af19bb3f6e981491b588a52).
+- [#1076](https://github.com/ctxrs/ctx/pull/1076) — scale Blame indexing and fix history refresh and setup.
+- [#1075](https://github.com/ctxrs/ctx/pull/1075) — keep macOS retained file identities stable across reboots.
+- [#1078](https://github.com/ctxrs/ctx/pull/1078) — remap build paths in release binaries.
+
+## 2.0.5
+
+Released: 2026-09-27
+
+### Fixed
+
+- Move current releases to a separate update feed so older installations can receive a small bridge release before downloading ctx 2.x.
+- New installs use the current feed directly. Existing 2.x installations that miss the transition can update by rerunning the installer; their history is retained.
+
+## 2.0.4
+
+Released: 2026-09-27
+
+### Fixed
+
+- Search uses less memory by avoiding full copies of index dictionaries and releasing query readers before formatting compact references.
+- Active Claude and Cursor transcripts can grow during refresh without blocking other sessions from updating. Incomplete trailing records are picked up on the next refresh.
+- Refresh avoids repeated manifest reloads and uses faster lookups for unchanged sources.
+
+### Commits and PRs
+
+- [#1070](https://github.com/ctxrs/ctx/pull/1070) — reduce search memory and keep active transcript refresh moving.
+- Full diff: [v2.0.2...v2.0.4](https://github.com/ctxrs/ctx/compare/v2.0.2...v2.0.4).
+
+## 2.0.2
+
+Released: 2026-09-25
+
+### Changed
+
+- `ctx sift` is the single command for output filtering and recall. Use `ctx sift recall` for retained output; the older root `ctx run`, `ctx compact`, `ctx restore`, `ctx recall`, and `ctx output` aliases are removed.
+
+### Fixed
+
+- Upgrades from a core-only ctx installation now complete without an integration ownership reconciliation warning.
+- Large imports keep queryable Blame facts from unaffected events and report bounded omissions instead of losing the whole page.
+- Index cleanup preserves certification when it discards unchanged candidates.
+
+### Commits and PRs
+
+- Source commit: [cff9cadb](https://github.com/ctxrs/ctx/commit/cff9cadbd0e86d25f21e0e835f261fef94ee5937).
+- Full diff: [v2.0.0...v2.0.2](https://github.com/ctxrs/ctx/compare/v2.0.0...v2.0.2). The earlier v2.0.1 tag remained a prerelease.
+- [#1055](https://github.com/ctxrs/ctx/pull/1055) — repair core-only upgrades.
+- [#1056](https://github.com/ctxrs/ctx/pull/1056) — retain index certification.
+- [#1059](https://github.com/ctxrs/ctx/pull/1059) — make `ctx sift` the sole output CLI.
+- [#1060](https://github.com/ctxrs/ctx/pull/1060) — retain Blame facts on large imports.
+
+## 2.0.0
+
+Released: 2026-09-24
+
+### Added
+
+- `ctx graph` indexes a chosen codebase and answers symbol, dependency, and impact questions from a local SQLite graph. Existing `.graf/index.db` databases can be used without conversion.
+- `ctx sift` compacts tool output locally. Supported agent hooks can be installed explicitly; the optional Jev selector remains off unless enabled.
+
+### Changed
+
+- Agent-history search, Blame, code graph, and Sift now ship in one `ctx` executable. Search and Blame remain available after the ordinary setup. Graph indexing and Sift hooks are opt-in.
+- The README now introduces the unified workflows, including the Graphify comparison and migration path.
+
+### Fixed
+
+- Devin sessions with repeated rejected subagent lineages no longer block Devin history indexing. Compacted sidekick handoffs remain connected to the original lineage.
+
+### Commits and PRs
+
+- Source commit: [d7b1da6f](https://github.com/ctxrs/ctx/commit/d7b1da6fe580c2ce757cc9a803e7b7560204dba6).
+- Full diff: [v1.6.3...d7b1da6f](https://github.com/ctxrs/ctx/compare/v1.6.3...d7b1da6fe580c2ce757cc9a803e7b7560204dba6).
+- [#1044](https://github.com/ctxrs/ctx/pull/1044) — repair Devin history imports across compaction.
+- [#1047](https://github.com/ctxrs/ctx/pull/1047) — unify history, graph, and Sift for ctx 2.0.
+- [#1048](https://github.com/ctxrs/ctx/pull/1048) — align macOS release checks with graph DNS imports.
+- [#1049](https://github.com/ctxrs/ctx/pull/1049) — align the README opening with ctx.rs.
+- [#1050](https://github.com/ctxrs/ctx/pull/1050) — align Windows release checks with graph system imports.
+- [#1051](https://github.com/ctxrs/ctx/pull/1051) — accept the unified executable size in release staging.
+- [#1052](https://github.com/ctxrs/ctx/pull/1052) — accept ctx 2.0 in hosted release verification.
+- [#1053](https://github.com/ctxrs/ctx/pull/1053) — qualify the current installer feed before ctx 2.0.
+
+## 1.6.3
+
+Released: 2026-09-22
+
+### Added
+
+- Blame indexing remains enabled by default. Set `enabled = false` in the
+  `[blame]` section of `config.toml` to stop new foreground and background
+  indexing passes. Existing results remain readable; an active pass may finish.
+  Re-enable it and run `ctx import --all` to catch up retained history.
+- `ctx import --no-blame` skips Blame completion for that import, without
+  changing the configuration or stopping an independently enabled daemon.
+- Imports and `ctx setup --wait` report Blame preparation, indexing and
+  publication progress. Status shows active work separately from the last
+  committed index's readiness. Plain and JSON progress are supported;
+  `--progress none` remains silent.
+
+### Commits and PRs
+
+- Source commit: [14b8c2e4](https://github.com/ctxrs/ctx/commit/14b8c2e412a2513c15cdca83a2c4a69de6623b81).
+- Full diff: [v1.6.2...14b8c2e4](https://github.com/ctxrs/ctx/compare/v1.6.2...14b8c2e412a2513c15cdca83a2c4a69de6623b81).
+- [#1043](https://github.com/ctxrs/ctx/pull/1043) — add Blame indexing controls and progress.
+
+## 1.6.2
+
+Released: 2026-09-22
+
+### Fixed
+
+- When one logical history source exceeds its bounded staging spool, ctx keeps
+  other providers available and retains that source's last good data when
+  possible. Diagnostics identify the affected source path and exceeded limit.
+
+### Commits and PRs
+
+- Source commit: [23d118ca](https://github.com/ctxrs/ctx/commit/23d118ca7d7cce419e0fc70b26dddf2de6a9e90b).
+- Full diff: [v1.6.1...23d118ca](https://github.com/ctxrs/ctx/compare/v1.6.1...23d118ca7d7cce419e0fc70b26dddf2de6a9e90b).
+- [#1040](https://github.com/ctxrs/ctx/pull/1040) — isolate per-source logical spool overflow.
+- [#1041](https://github.com/ctxrs/ctx/pull/1041) — prepare the 1.6.2 release.
+
 ## 1.6.1
 
 Released: 2026-09-22
