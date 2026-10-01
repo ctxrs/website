@@ -8,6 +8,23 @@ Entries below describe the behavior of their dated historical releases. A
 feature recorded here may no longer be part of the current product surface.
 See [Blame](/blame) and [Install](/getting-started/install) for current use.
 
+## 2.2.5
+
+Released: 2026-10-01
+
+### Changed
+
+- The ctx skill restores its original guidance to search prior agent work before starting unfamiliar work, resuming a task, or revisiting an investigation. It also explains when to query an indexed code graph.
+- Existing managed skills refresh automatically after upgrading. Locally edited skills are preserved.
+
+### Fixed
+
+- Imports work after OpenCode’s SQLite migration, including repeat imports and retained session evidence.
+- Blame attribution works for supported primary agent sessions.
+- Requested imports that fail return a failing exit status instead of reporting success.
+
+Release: [v2.2.5](https://github.com/ctxrs/ctx/releases/tag/v2.2.5).
+
 ## 2.2.4
 
 Released: 2026-09-30
