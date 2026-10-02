@@ -8,6 +8,17 @@ Entries below describe the behavior of their dated historical releases. A
 feature recorded here may no longer be part of the current product surface.
 See [Blame](/blame) and [Install](/getting-started/install) for current use.
 
+## 2.2.7
+
+Released: 2026-10-02
+
+### Fixed
+
+- Incremental imports reuse validated ownership for unchanged Codex rollouts, avoiding repeated reads of large metadata prefixes. Changed and replaced files still validate ownership before publishing history.
+- Telemetry accepts Sift output-hook integration events.
+
+Release: [v2.2.7](https://github.com/ctxrs/ctx/releases/tag/v2.2.7).
+
 ## 2.2.6
 
 Released: 2026-10-02
