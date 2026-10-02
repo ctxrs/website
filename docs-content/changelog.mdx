@@ -8,6 +8,20 @@ Entries below describe the behavior of their dated historical releases. A
 feature recorded here may no longer be part of the current product surface.
 See [Blame](/blame) and [Install](/getting-started/install) for current use.
 
+## 2.2.6
+
+Released: 2026-10-02
+
+### Added
+
+- `ctx import --all --incremental` runs one catch-up using existing checkpoints, without enabling automatic indexing. Ordinary imports remain exhaustive, and selected sources still get membership and deletion checks.
+
+### Fixed
+
+- Foreground imports recover the original request after lost acknowledgements while their owned worker is still alive, instead of giving up after three retries. Cancellation and explicit failures remain intact.
+
+Release: [v2.2.6](https://github.com/ctxrs/ctx/releases/tag/v2.2.6).
+
 ## 2.2.5
 
 Released: 2026-10-01
