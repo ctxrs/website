@@ -8,6 +8,18 @@ Entries below describe the behavior of their dated historical releases. A
 feature recorded here may no longer be part of the current product surface.
 See [Blame](/blame) and [Install](/getting-started/install) for current use.
 
+## 2.2.8
+
+Released: 2026-10-05
+
+### Fixed
+
+- Incremental imports read new records without rereading large, unchanged Codex ownership prefixes. Unfinished trailing records resume from the last complete record instead of replaying the completed history.
+- Imports use executable file metadata to check worker compatibility instead of reading the entire binary each time. Strict executable verification remains in place when signalling another process.
+- Background blame maintenance selects the current history after waiting for the writer lock, preventing a queued worker from publishing stale attribution. Writer locks are released when their owner finishes, even if a duplicated file descriptor remains open.
+
+Release: [v2.2.8](https://github.com/ctxrs/ctx/releases/tag/v2.2.8).
+
 ## 2.2.7
 
 Released: 2026-10-02
