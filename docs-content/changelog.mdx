@@ -8,6 +8,34 @@ Entries below describe the behavior of their dated historical releases. A
 feature recorded here may no longer be part of the current product surface.
 See [Blame](/blame) and [Install](/getting-started/install) for current use.
 
+## 2.3.0
+
+Released: 2026-10-25
+
+### Added
+
+- Restored conversations show the archive creator's origin and view in search, detail and `locate` output, with optional `archive_provenance` in JSON and MCP. Labels are creator-supplied; restore older imports again to add them. ([#1134](https://github.com/ctxrs/ctx/pull/1134), [#1123](https://github.com/ctxrs/ctx/issues/1123))
+- `ctx archive export` selects conversations by `--workspace`, `--since` and `--until`. Use `--preview` to inspect the selection without writing an archive. ([#1138](https://github.com/ctxrs/ctx/pull/1138), [#1122](https://github.com/ctxrs/ctx/issues/1122))
+- `ctx daemon status --all` lists registered data roots and daemon state as text or JSON. ([#1137](https://github.com/ctxrs/ctx/pull/1137), [#1124](https://github.com/ctxrs/ctx/issues/1124))
+
+### Changed
+
+- Upgrade dependencies affected by security advisories, including Tantivy 0.27, lru, the TLS stack and ZIP handling; replace retired YAML dependencies with `yaml_serde`. Existing YAML records and 2.2.8 search indexes remain usable. ([#1131](https://github.com/ctxrs/ctx/pull/1131))
+
+### Fixed
+
+- Avoid repeatedly reading unchanged Codex history when new sessions appear during ongoing appends. ([#1130](https://github.com/ctxrs/ctx/pull/1130), [#1119](https://github.com/ctxrs/ctx/issues/1119))
+- Stop idle daemon CPU loops after refresh admission failures while allowing later scheduled refreshes. ([#1132](https://github.com/ctxrs/ctx/pull/1132), [#1125](https://github.com/ctxrs/ctx/issues/1125))
+- Recover search from invalid retention holds, correct macOS file-identity checks, and report the actual read-lock error. `ctx doctor --repair` verifies history and preserves invalid hold files in quarantine. ([#1133](https://github.com/ctxrs/ctx/pull/1133), [#1121](https://github.com/ctxrs/ctx/issues/1121))
+- Keep other Codex sessions refreshing when one rollout is oversized or a transcript symlink is refused, preserving previously indexed content. Sources paused by an earlier internal failure retry after upgrading. ([#1135](https://github.com/ctxrs/ctx/pull/1135), [#1126](https://github.com/ctxrs/ctx/issues/1126))
+- Explain on stderr when a search against a separate `--data-root` starts a persistent indexer, including how to switch that root to manual indexing. ([#1137](https://github.com/ctxrs/ctx/pull/1137), [#1124](https://github.com/ctxrs/ctx/issues/1124))
+
+- Source commit: [0e1b92ab6e835866eb7e5e5bd79c76d329cc1a3f](https://github.com/ctxrs/ctx/commit/0e1b92ab6e835866eb7e5e5bd79c76d329cc1a3f)
+
+[Full changes](https://github.com/ctxrs/ctx/compare/v2.2.8...v2.3.0).
+
+Release: [v2.3.0](https://github.com/ctxrs/ctx/releases/tag/v2.3.0).
+
 ## 2.2.8
 
 Released: 2026-10-05
